@@ -1,0 +1,11 @@
+{
+	"name": "joy",
+	"url": "https://github.com/raggy/joy",
+	"license": "MIT",
+	"tags": [],
+	"description": "joy is a virtual joystick library for OpenFL",
+	"version": "0.0.1",
+	"releasenote": "",
+	"contributors": [ "bnhw" ],
+	"dependencies": { "openfl": "" }
+}

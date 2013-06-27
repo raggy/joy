@@ -1,4 +1,1 @@
-joy
-===
-
-Virtual joystick library for OpenFL
+joy is a virtual joystick library for OpenFL
