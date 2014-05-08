@@ -10,7 +10,7 @@ import flash.ui.MultitouchInputMode;
 import flash.Lib;
 import joy.events.JoystickEvent;
 
-class Joystick
+class Joystick extends Point
 {
 
 	private static var byId:Map<Int, Joystick>;
@@ -22,10 +22,16 @@ class Joystick
 	private var center:Point;
 
 	public var id(default, null):Int;
-	public var x(default, null):Float;
-	public var y(default, null):Float;
 
-	public function toString():String
+	function new(id:Int, x:Float, y:Float)
+	{
+		super();
+
+		this.center = new Point(x, y);
+		this.id = id;
+	}
+
+	override public function toString():String
 	{
 		return "[ Joystick " + id + " (" + x + ", " + y + ") ]";
 	}
@@ -108,18 +114,13 @@ class Joystick
 
 	static inline function onBegin(id:Int, x:Float, y:Float)
 	{
-		var joystick = Type.createEmptyInstance(Joystick);
-
-		joystick.center = new Point(x, y);
-		joystick.id = id;
-		joystick.x = 0;
-		joystick.y = 0;
+		var joystick = new Joystick(id, x, y);
 
 		byId.set(id, joystick);
 
-		if (Lib.current.stage.hasEventListener(JoystickEvent.AXIS_ADDED))
+		if (Lib.current.stage.hasEventListener(JoystickEvent.JOYSTICK_ADDED))
 		{
-			Lib.current.stage.dispatchEvent(new JoystickEvent(JoystickEvent.AXIS_ADDED, false, false, joystick));
+			Lib.current.stage.dispatchEvent(new JoystickEvent(JoystickEvent.JOYSTICK_ADDED, false, false, joystick));
 		}
 
 		draw();
@@ -144,9 +145,9 @@ class Joystick
 			joystick.x = difference.x / radius;
 			joystick.y = difference.y / radius;
 
-			if (Lib.current.stage.hasEventListener(JoystickEvent.AXIS_MOVED))
+			if (Lib.current.stage.hasEventListener(JoystickEvent.JOYSTICK_MOVED))
 			{
-				Lib.current.stage.dispatchEvent(new JoystickEvent(JoystickEvent.AXIS_MOVED, false, false, joystick));
+				Lib.current.stage.dispatchEvent(new JoystickEvent(JoystickEvent.JOYSTICK_MOVED, false, false, joystick));
 			}
 
 			draw();
@@ -159,9 +160,9 @@ class Joystick
 		{
 			var joystick = byId.get(id);
 	
-			if (Lib.current.stage.hasEventListener(JoystickEvent.AXIS_REMOVED))
+			if (Lib.current.stage.hasEventListener(JoystickEvent.JOYSTICK_REMOVED))
 			{
-				Lib.current.stage.dispatchEvent(new JoystickEvent(JoystickEvent.AXIS_REMOVED, false, false, joystick));
+				Lib.current.stage.dispatchEvent(new JoystickEvent(JoystickEvent.JOYSTICK_REMOVED, false, false, joystick));
 			}
 
 			byId.remove(id);

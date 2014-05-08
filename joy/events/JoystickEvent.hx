@@ -21,8 +21,8 @@ class JoystickEvent extends Event
 		return new JoystickEvent(type, bubbles, cancelable, joystick);
 	}
 
-	public static inline var AXIS_ADDED:String = "axisAdded";
-	public static inline var AXIS_MOVED:String = "axisMoved";
-	public static inline var AXIS_REMOVED:String = "axisRemoved";
+	public static inline var JOYSTICK_ADDED:String = "joystickAdded";
+	public static inline var JOYSTICK_MOVED:String = "joystickMoved";
+	public static inline var JOYSTICK_REMOVED:String = "joystickRemoved";
 
 }
