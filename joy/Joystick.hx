@@ -31,6 +31,17 @@ class Joystick extends Point
 		this.id = id;
 	}
 
+	public function reset()
+	{
+		center.x += x * radius;
+		center.y += y * radius;
+
+		x = 0;
+		y = 0;
+
+		draw();
+	}
+
 	override public function toString():String
 	{
 		return "[ Joystick " + id + " (" + x + ", " + y + ") ]";
